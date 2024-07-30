@@ -17,5 +17,17 @@ def create_app():
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
+
+    with app.app_context():
+        from models import User, Note
+        create_database()
+
+    return app
+
+def create_database():
+    if not path.exists('app/' + DB_NAME):
+        db.create_all()
+        print('Created Database')
+
     
 
