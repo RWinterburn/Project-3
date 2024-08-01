@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from werkzeug.security import check_password_hash, generate_password_hash
 from models import User
 from app import db
 
@@ -13,14 +14,14 @@ def login():
         user = User.query.filter_by(email=email).first()
         if user:
             if check_password_hash(user.password, password):
-                #login logic
-                flash('Log in success', category = 'success')
+                # Login logic
+                flash('Log in success', category='success')
                 session['user_id'] = user.id
                 return redirect(url_for('views.home'))
             else:
                 flash('Password is incorrect', category='error')
         else:
-                flash('Email does not exist', category='error')
+            flash('Email does not exist', category='error')
 
     return render_template('login.html')
 
@@ -30,7 +31,7 @@ def logout():
     flash('Logged out successfully', category='success')
     return redirect(url_for('auth.login'))
 
-@auth.route('/sign-up', methods = ['GET', 'POST'])
+@auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -41,11 +42,10 @@ def sign_up():
         user = User.query.filter_by(email=email).first()
         if user:
             flash('Email already exists', category='error')
-
         elif len(first_name) < 2:
             flash('Name must be greater than 2 characters', category='error')
         elif password1 != password2:
-            flash('Passwords do not match', category='error') 
+            flash('Passwords do not match', category='error')
         elif len(password1) < 7:
             flash('Password must be at least 7 characters long', category='error')
         else:
