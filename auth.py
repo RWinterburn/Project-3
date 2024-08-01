@@ -17,3 +17,19 @@ def login():
                 flash('Log in success', category = 'success')
                 session['user_id'] = user.id
                 return redirect(url_for('views.home'))
+            else:
+                flash('Password is incorrect', category='error')
+        else:
+                flash('Email does not exist', category='error')
+
+    return render_template('login.html')
+
+@auth.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash('Logged out successfully', category='success')
+    return redirect(url_for('auth.login'))
+
+    
+
+
