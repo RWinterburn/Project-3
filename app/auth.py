@@ -12,3 +12,8 @@ def login():
 
         user = User.query.filter_by(email=email).first()
         if user:
+            if check_password_hash(user.password, password):
+                #login logic
+                flash('Log in success', category = 'success')
+                session['user_id'] = user.id
+                return redirect(url_for('views.home'))
