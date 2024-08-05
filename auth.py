@@ -58,7 +58,12 @@ def sign_up():
             flash('Account created successfully', category='success')
             return redirect(url_for('auth.login'))  # Redirect to the login page after successful signup
              
-    return render_template('sign_up.html')
+    return render_template('sign-up.html')
+
+
+@auth.route('/')
+def home():
+    return render_template('home.html')
 
 
 
