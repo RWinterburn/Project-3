@@ -1,0 +1,9 @@
+#nav {
+    /* Example styles */
+    background-color: #0080ff; /* Custom background color */
+    padding: 15px; /* Custom padding */
+    border-bottom: 2px solid #ffcc00; /* Custom border at the bottom */
+}
+
+.heading{color: #0080ff;}
+p {color: #0080ff;}
