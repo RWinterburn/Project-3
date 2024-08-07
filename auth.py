@@ -12,12 +12,12 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if user:
+        if user:  # Corrected the check for user existence
             if check_password_hash(user.password, password):
                 # Login logic
                 flash('Log in success', category='success')
                 session['user_id'] = user.id
-                return redirect(url_for('views.home'))
+                return redirect(url_for('auth.profile'))  # Redirect to the profile page after login
             else:
                 flash('Password is incorrect', category='error')
         else:
@@ -60,10 +60,24 @@ def sign_up():
              
     return render_template('sign-up.html')
 
+@auth.route('/profile')
+def profile():
+    user_id = session.get('user_id')
+    if not user_id:
+        flash('You need to log in to view your profile', category='error')
+        return redirect(url_for('auth.login'))
+    
+    user = User.query.get(user_id)
+    if not user:
+        flash('User not found', category='error')
+        return redirect(url_for('auth.login'))
+
+    return render_template('profile.html', user=user)
 
 @auth.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html')  # home.html template
+
 
 
 

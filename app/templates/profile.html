@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<title>Profile</title>
+</head>
+<body>
+    <h1>Profile Page</h1>
+    <p>Welcome, {{ user.first_name }}!</p>
+    <p>Email: {{ user.email }}</p>
+
+    <form method="POST">
+        <label for="note">Add a new note:</label>
+        <textarea id="note" name="note" rows="4" cols="50"></textarea><br>
+        <button type="submit">Add Note</button>
+    </form>
+
+    <h2>Your Notes:</h2>
+    <ul>
+        {% for note in notes %}
+            <li>{{ note.data }} (created at {{ note.created_at }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+
+
+
+{% endblock %}
