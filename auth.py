@@ -60,7 +60,7 @@ def sign_up():
              
     return render_template('sign-up.html')
 
-@auth.route('/profile')
+@auth.route('/profile', methods=['GET', 'POST'])
 def profile():
     user_id = session.get('user_id')
     if not user_id:
@@ -76,8 +76,7 @@ def profile():
 
 @auth.route('/')
 def home():
-    return render_template('home.html')  # home.html template
-
+    return render_template('home.html')  # Ensure you have a home.html template
 
 
 
