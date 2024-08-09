@@ -21,9 +21,6 @@
         {% for note in notes %}
             <li>{{ note.data }} (created at {{ note.created_at }})</li>
         {% endfor %}
-        {% if notes|length == 0 %}
-            <li>No notes found.</li>
-        {% endif %}
     </ul>
 </body>
 </html>
