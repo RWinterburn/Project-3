@@ -10,6 +10,7 @@ class User(db.Model, UserMixin):
     notes = db.relationship('Note', back_populates='user')
 
 class Note(db.Model):
+    __tablename__ = 'notes'
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(1000))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  

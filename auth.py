@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from werkzeug.security import check_password_hash, generate_password_hash
-from models import User
+from models import User, Note  # Ensure Note is imported
 from app import db
 
 auth = Blueprint('auth', __name__)
@@ -12,12 +12,11 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if user:  # Corrected the check for user existence
+        if user:
             if check_password_hash(user.password, password):
-                # Login logic
                 flash('Log in success', category='success')
                 session['user_id'] = user.id
-                return redirect(url_for('auth.profile'))  # Redirect to the profile page after login
+                return redirect(url_for('auth.profile'))
             else:
                 flash('Password is incorrect', category='error')
         else:
@@ -49,14 +48,13 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters long', category='error')
         else:
-            # Hash the actual user input password
             hashed_password = generate_password_hash(password1, method='pbkdf2:sha256', salt_length=8)
             new_user = User(email=email, first_name=first_name, password=hashed_password)
 
             db.session.add(new_user)
             db.session.commit()
             flash('Account created successfully', category='success')
-            return redirect(url_for('auth.login'))  # Redirect to the login page after successful signup
+            return redirect(url_for('auth.login'))
              
     return render_template('sign-up.html')
 
@@ -66,19 +64,28 @@ def profile():
     if not user_id:
         flash('You need to log in to view your profile', category='error')
         return redirect(url_for('auth.login'))
-    
+
     user = User.query.get(user_id)
     if not user:
         flash('User not found', category='error')
         return redirect(url_for('auth.login'))
 
+    if request.method == 'POST':
+        note_content = request.form.get('note')
+        if not note_content or len(note_content) < 1:
+            flash('Note is too short', category='error')
+        else:
+            new_note = Note(data=note_content, user_id=user.id)
+            db.session.add(new_note)
+            db.session.commit()
+            flash('Note added successfully', category='success')
+            return redirect(url_for('auth.profile'))
+
     return render_template('profile.html', user=user)
 
 @auth.route('/')
 def home():
-    return render_template('home.html')  # Ensure you have a home.html template
-
-
-
-
-
+    user_id = session.get('user_id')
+    if user_id:
+        return redirect(url_for('auth.profile'))
+    return render_template('home.html')

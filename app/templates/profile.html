@@ -18,9 +18,13 @@
 
     <h2>Your Notes:</h2>
     <ul>
-        {% for note in notes %}
-            <li>{{ note.data }} (created at {{ note.created_at }})</li>
-        {% endfor %}
+        {% if user.notes %}
+            {% for note in user.notes %}
+                <li>{{ note.data }} (User ID: {{ user.first_name }})</li>
+            {% endfor %}
+        {% else %}
+            <li>No notes found.</li>
+        {% endif %}
     </ul>
 </body>
 </html>

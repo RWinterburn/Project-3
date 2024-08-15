@@ -1,0 +1,6 @@
+/* More specific selector */
+body { color: #0080ff; 
+background-color: aliceblue;}
+
+footer {position: sticky}
+

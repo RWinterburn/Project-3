@@ -16,6 +16,7 @@ def profile_page():
         if user:
             user.first_name = first_name
             user.email = email
+            user.notes = notes
             
             db.session.commit()
             flash('Profile updated successfully', category='success')
