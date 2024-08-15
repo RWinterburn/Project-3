@@ -1,10 +1,15 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+from flask_login import LoginManager
 
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
+
+login_manager = LoginManager()
+
+login_manager.login_view = 'auth.login'
 
 def create_app():
     app = Flask(__name__, template_folder='app/templates')

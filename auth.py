@@ -91,13 +91,33 @@ def home():
     return render_template('home.html')
 
 
-@auth.route('/delete-note', methods=['POST'])
+@auth.route('/profile', methods=['POST'])
 def delete_note():
-    note = json.loads(request.data)
-    noteId == data['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id = current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-            return Jsonify
+    user_id = session.get('user_id')
+    if not user_id:
+        return jsonify({'error': 'You need to log in to delete notes'}), 403
+
+    data = request.get_json()
+    note_id = data.get('noteId')
+    
+    if not note_id:
+        return jsonify({'error': 'Note ID not provided'}), 400
+
+    note = Note.query.get(note_id)
+    
+    if not note:
+        return jsonify({'error': 'Note not found'}), 404
+
+    if note.user_id != user_id:
+        return jsonify({'error': 'Unauthorized'}), 403
+
+    try:
+        db.session.delete(note)
+        db.session.commit()
+        return jsonify({'message': 'Note deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'An error occurred while deleting the note'}), 500
+
+
+

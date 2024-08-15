@@ -120,5 +120,29 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
+  <script>
+    function deleteNote(noteId) {
+        fetch('/delete-note', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ noteId: noteId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);  // Notify the user of success
+                location.reload();  // Reload the page to reflect changes
+            } else if (data.error) {
+                alert(data.error);  // Notify the user of the error
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
+
 </body>
 </html>
