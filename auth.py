@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
 from models import User, Note  # Ensure Note is imported
 from app import db
@@ -90,8 +90,7 @@ def home():
         return redirect(url_for('auth.profile'))
     return render_template('home.html')
 
-
-@auth.route('/profile', methods=['POST'])
+@auth.route('/delete-note', methods=['POST'])
 def delete_note():
     user_id = session.get('user_id')
     if not user_id:
@@ -118,6 +117,12 @@ def delete_note():
     except Exception as e:
         db.session.rollback()
         return jsonify({'error': 'An error occurred while deleting the note'}), 500
+
+@auth.errorhandler(500)
+def internal_error(e):
+    return render_template('500.html'), 500
+
+    
 
 
 
