@@ -3,34 +3,39 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-<title>Home</title>
-</head>
-<body>
-    
-    <p>Welcome, {{ user.first_name }}!</p>
-    <p>Email: {{ user.email }}</p>
-   
-    <form method="POST">
-        <label for="publicpost">Add a new public post:</label>
-        <textarea id="publicpost" name="publicpost" rows="4" cols="50"></textarea><br>
-        <button type="submit">Add public post</button>
-    </form>
+<div class="container">
+    <h1 class="text-center">Welcome to the community page</h1>
+    <p class="text-center bg-blue"></p> 
+</div>
 
-    <ul>
-        {% if user.public_notes %}
-            {% for public_note in user.public_notes %}
-                <li>{{ public_note.content }} (Posted by: {{ user.first_name }})
-                    <button type="button" class="delete" onClick="deletePublicPost({{ public_note.id }})">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </li>
-            {% endfor %}
-        {% else %}
-            <li>No public posts found.</li>
-        {% endif %}
-    </ul>
-</body>
-</html>
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Column 1</th>
+                <th scope="col">Column 2</th>
+                <th scope="col">Column 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>One of three columns</td>
+                <td>One of three columns</td>
+                <td>One of three columns</td>
+            </tr>
+            <tr>
+                <td>One of three columns</td>
+                <td>One of three columns</td>
+                <td>One of three columns</td>
+            </tr>
+            <tr>
+                <td>One of three columns</td>
+                <td>One of three columns</td>
+                <td>One of three columns</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 
 
