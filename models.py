@@ -16,3 +16,12 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  
     user = db.relationship('User', back_populates='notes')
 
+
+class PublicNote(db.Model):
+    __tablename__ = 'public_notes'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    content = db.Column(db.String(2000))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))  
+    user = db.relationship('User', back_populates='public_notes')
+    public_notes = db.relationship('PublicNote', back_populates='user')
