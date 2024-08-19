@@ -9,25 +9,24 @@
     
     <p>Welcome, {{ user.first_name }}!</p>
     <p>Email: {{ user.email }}</p>
-
+   
     <form method="POST">
-        <label for="note">Add a new note:</label>
+        <label for="publicpost">Add a new public post:</label>
         <textarea id="publicpost" name="publicpost" rows="4" cols="50"></textarea><br>
         <button type="submit">Add public post</button>
     </form>
 
-    <h2>Your Notes:</h2>
     <ul>
-        {% if user.notes %}
-            {% for note in user.notes %}
-                <li>{{ note.data }} (User ID: {{ user.first_name }})
-                    <button type="button" class="delete" onClick="deleteNote({{ note.id }})">
+        {% if user.public_notes %}
+            {% for public_note in user.public_notes %}
+                <li>{{ public_note.content }} (Posted by: {{ user.first_name }})
+                    <button type="button" class="delete" onClick="deletePublicPost({{ public_note.id }})">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </li>
             {% endfor %}
         {% else %}
-            <li>No notes found.</li>
+            <li>No public posts found.</li>
         {% endif %}
     </ul>
 </body>
