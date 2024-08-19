@@ -3,39 +3,35 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1 class="text-center">Welcome to the community page</h1>
-    <p class="text-center bg-blue"></p> 
-</div>
+<title>Home</title>
+</head>
+<body>
+    
+    <p>Welcome, {{ user.first_name }}!</p>
+    <p>Email: {{ user.email }}</p>
 
-<div class="container">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">Column 1</th>
-                <th scope="col">Column 2</th>
-                <th scope="col">Column 3</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>One of three columns</td>
-                <td>One of three columns</td>
-                <td>One of three columns</td>
-            </tr>
-            <tr>
-                <td>One of three columns</td>
-                <td>One of three columns</td>
-                <td>One of three columns</td>
-            </tr>
-            <tr>
-                <td>One of three columns</td>
-                <td>One of three columns</td>
-                <td>One of three columns</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+    <form method="POST">
+        <label for="note">Add a new note:</label>
+        <textarea id="note" name="note" rows="4" cols="50"></textarea><br>
+        <button type="submit">Add Note</button>
+    </form>
+
+    <h2>Your Notes:</h2>
+    <ul>
+        {% if user.notes %}
+            {% for note in user.notes %}
+                <li>{{ note.data }} (User ID: {{ user.first_name }})
+                    <button type="button" class="delete" onClick="deleteNote({{ note.id }})">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No notes found.</li>
+        {% endif %}
+    </ul>
+</body>
+</html>
 
 
 
