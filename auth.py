@@ -72,10 +72,12 @@ def profile():
 
     if request.method == 'POST':
         note_content = request.form.get('note')
+        is_public = 'is_public' in request.form  # Check if the "Make this note public" checkbox was checked
+
         if not note_content or len(note_content) < 1:
             flash('Note is too short', category='error')
         else:
-            new_note = Note(data=note_content, user_id=user.id)
+            new_note = Note(data=note_content, user_id=user.id, is_public=is_public)
             db.session.add(new_note)
             db.session.commit()
             flash('Note added successfully', category='success')
@@ -83,12 +85,12 @@ def profile():
 
     return render_template('profile.html', user=user)
 
+
 @auth.route('/')
 def home():
-    user_id = session.get('user_id')
-    if user_id:
-        return redirect(url_for('auth.profile'))
-    return render_template('home.html')
+    public_notes = Note.query.filter_by(is_public=True).all()
+    print(public_notes)  # Print notes to console
+    return render_template('home.html', public_notes=public_notes)
 
 @auth.route('/delete-note', methods=['POST'])
 def delete_note():

@@ -1,19 +1,21 @@
 {% extends "base.html" %}
-
 {% block title %} Home {% endblock %}
 
 {% block content %}
 <div class="container">
     <h1 class="text-center">Welcome to the community board</h1>
-    <p class="text-center bg-blue"></p> 
+    <p class="text-center bg-blue">Here are the latest public notes from our users:</p> 
 </div>
 
 <div class="container">
-  
+    <ul>
+        {% if public_notes %}
+            {% for note in public_notes %}
+                <li>{{ note.data }} - Posted by {{ note.user.first_name }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No public notes yet.</li>
+        {% endif %}
+    </ul>
 </div>
-
-
-
-
-
 {% endblock %}
