@@ -12,7 +12,9 @@ views = Blueprint('views', __name__)
 
 @views.route('/home')
 def home():
-    return render_template("home.html")
+    public_notes = Note.query.filter_by(is_public=True).all()
+    print(public_notes)  # Print notes to console
+    return render_template('home.html', public_notes=public_notes)
 
 
 
