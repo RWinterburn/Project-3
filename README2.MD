@@ -20,3 +20,6 @@ DEFINE WHAT THE WEBSITE IS USED FOR (COMMUNITY NOTICE BOARD)
 MAKE SURE USERS CAN SEE OTHER PEOPLES NOTES ON THE PAGE ON THE MAIN HOME PAGE 
 
 contact heroku about issue signing up to deploy website
+
+make it so admin can only delete blog posts
+figure out why url isnt working for home

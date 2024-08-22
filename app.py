@@ -31,7 +31,7 @@ def create_app():
 
 
     with app.app_context():
-        from models import User, Note
+        from models import User, Note, BlogPost, Comment
         create_database()
 
     return app

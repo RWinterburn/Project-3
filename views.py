@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import current_user
-from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
 from models import User, Note, BlogPost, Comment
@@ -8,11 +7,11 @@ from models import User, Note, BlogPost, Comment
 views = Blueprint('views', __name__)
 
 @views.route('/home')
-def show_public_notes():
-    public_notes = Note.query.filter_by(is_public=True).all()
-    print(public_notes)  # Print notes to console
-    return render_template('home.html', public_notes=public_notes)
+def show_blog_posts():
+    blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+    return render_template('home.html', blog_posts=blog_posts)
 
+# Route to add a comment to a specific blog post
 @views.route('/add_comment/<int:post_id>', methods=['POST'])
 def add_comment(post_id):
     blog_post = BlogPost.query.get_or_404(post_id)
@@ -28,10 +27,12 @@ def add_comment(post_id):
 
     return redirect(url_for('views.show_blog_posts'))
 
-@views.route('/')
-def show_blog_posts():
+@views.route('/all_blog_posts')
+def show_all_blog_posts():
     blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
-    return render_template('home.html', blog_posts=blog_posts)
+    return render_template('all_blog_posts.html', blog_posts=blog_posts)
+
+    
 
 
 

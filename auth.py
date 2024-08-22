@@ -124,6 +124,9 @@ def delete_note():
 def internal_error(e):
     return render_template('500.html'), 500
 
+
+
+
     
 
 
