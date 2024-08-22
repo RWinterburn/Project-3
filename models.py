@@ -27,3 +27,12 @@ class BlogPost(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment', back_populates='blog_post')
 
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(1000))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    blog_post_id = db.Column(db.Integer, db.ForeignKey('blog_posts.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    user = db.relationship('User', back_populates='comments')
+    blog_post = db.relationship('BlogPost', back_populates='comments')
