@@ -1,25 +1,19 @@
-from flask import Blueprint, render_template, request, flash
+from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import current_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from app import db
 from models import User, Note, BlogPost, Comment
-import json
 
 views = Blueprint('views', __name__)
 
-
-
 @views.route('/home')
-def home():
+def show_public_notes():
     public_notes = Note.query.filter_by(is_public=True).all()
     print(public_notes)  # Print notes to console
     return render_template('home.html', public_notes=public_notes)
 
-
-#testing
 @views.route('/add_comment/<int:post_id>', methods=['POST'])
-@login_required
 def add_comment(post_id):
     blog_post = BlogPost.query.get_or_404(post_id)
     comment_content = request.form.get('comment')
@@ -32,11 +26,10 @@ def add_comment(post_id):
     else:
         flash('Comment cannot be empty.', 'danger')
 
-    return redirect(url_for('home'))
+    return redirect(url_for('views.show_blog_posts'))
 
-#testing
 @views.route('/')
-def home():
+def show_blog_posts():
     blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
     return render_template('home.html', blog_posts=blog_posts)
 

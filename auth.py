@@ -86,7 +86,7 @@ def profile():
     return render_template('profile.html', user=user)
 
 
-@auth.route('/')
+@auth.route('/notes')
 def home():
     public_notes = Note.query.filter_by(is_public=True).all()
     print(public_notes)  # Print notes to console
