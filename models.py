@@ -1,5 +1,6 @@
 from app import db
 from flask_login import UserMixin
+from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'  
@@ -16,3 +17,13 @@ class Note(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     is_public = db.Column(db.Boolean, default=False)
     user = db.relationship('User', back_populates='notes')
+
+class BlogPost(db.Model):
+    __tablename__ = 'blog_post'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    content = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    comments = db.relationship('Comment', back_populates='blog_post')
+
