@@ -1,13 +1,10 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify
+from flask import Blueprint, render_template, request, flash, redirect, url_for, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import login_user, logout_user, current_user, login_required  # Import login_user
+from flask_login import login_user, logout_user, current_user, login_required
 from models import User, Note
 from app import db
 
-
 auth = Blueprint('auth', __name__)
-
-
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -26,8 +23,9 @@ def login():
     return render_template('login.html')
 
 @auth.route('/logout')
+@login_required
 def logout():
-    session.pop('user_id', None)
+    logout_user()  # Use logout_user to handle session management
     flash('Logged out successfully', category='success')
     return redirect(url_for('auth.login'))
 
@@ -60,17 +58,8 @@ def sign_up():
     return render_template('sign-up.html')
 
 @auth.route('/profile', methods=['GET', 'POST'])
+@login_required
 def profile():
-    user_id = session.get('user_id')
-    if not user_id:
-        flash('You need to log in to view your profile', category='error')
-        return redirect(url_for('auth.login'))
-
-    user = User.query.get(user_id)
-    if not user:
-        flash('User not found', category='error')
-        return redirect(url_for('auth.login'))
-
     if request.method == 'POST':
         note_content = request.form.get('note')
         is_public = 'is_public' in request.form  # Check if the "Make this note public" checkbox was checked
@@ -78,14 +67,13 @@ def profile():
         if not note_content or len(note_content) < 1:
             flash('Note is too short', category='error')
         else:
-            new_note = Note(data=note_content, user_id=user.id, is_public=is_public)
+            new_note = Note(data=note_content, user_id=current_user.id, is_public=is_public)
             db.session.add(new_note)
             db.session.commit()
             flash('Note added successfully', category='success')
             return redirect(url_for('auth.profile'))
 
-    return render_template('profile.html', user=user)
-
+    return render_template('profile.html', user=current_user)
 
 @auth.route('/')
 def home():
@@ -94,11 +82,8 @@ def home():
     return render_template('home.html', public_notes=public_notes)
 
 @auth.route('/delete-note', methods=['POST'])
+@login_required
 def delete_note():
-    user_id = session.get('user_id')
-    if not user_id:
-        return jsonify({'error': 'You need to log in to delete notes'}), 403
-
     data = request.get_json()
     note_id = data.get('noteId')
     
@@ -110,7 +95,7 @@ def delete_note():
     if not note:
         return jsonify({'error': 'Note not found'}), 404
 
-    if note.user_id != user_id:
+    if note.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
     try:

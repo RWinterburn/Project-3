@@ -5,52 +5,56 @@
 {% block content %}
     <h1>Home Page</h1>
 
-    <!-- Form to add a new blog post -->
-    <h2>Add a New Blog Post</h2>
-    <form method="POST" action="{{ url_for('views.show_blog_posts') }}">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required><br><br>
-        
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
-        
-        <button type="submit">Add Blog Post</button>
-    </form>
+    {% if current_user.is_authenticated %}
+        <!-- Form to add a new blog post -->
+        <h2>Add a New Blog Post</h2>
+        <form method="POST" action="{{ url_for('views.show_blog_posts') }}">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required><br><br>
+            
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
+            
+            <button type="submit">Add Blog Post</button>
+        </form>
+    {% else %}
+        <p>You need to <a href="{{ url_for('auth.login') }}">log in</a> to add a blog post.</p>
+    {% endif %}
 
-        {% if blog_posts %}
-            <ul>
-                {% for post in blog_posts %}
-                    <li>
-                        <h3>{{ post.title }}</h3>
-                        <p>{{ post.content }}</p>
-                        <small>Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
-                        
-                        <!-- Comment form -->
-                        <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST">
-                            <textarea name="comment" placeholder="Add your comment here" required></textarea>
-                            <button type="submit">Submit Comment</button>
-                        </form>
-                        
-                        <!-- Display comments -->
-                        <div>
-                            <h4>Comments:</h4>
-                            {% if post.comments %}
-                                <ul>
-                                    {% for comment in post.comments %}
-                                        <li>
-                                            <p>{{ comment.content }}</p>
-                                            <small>Commented by {{ comment.user.first_name }} on {{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>No comments yet.</p>
-                            {% endif %}
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No blog posts available.</p>
-        {% endif %}
-        {% endblock %}
+    {% if blog_posts %}
+        <ul>
+            {% for post in blog_posts %}
+                <li>
+                    <h3>{{ post.title }}</h3>
+                    <p>{{ post.content }}</p>
+                    <small>Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                    
+                    <!-- Comment form -->
+                    <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST">
+                        <textarea name="comment" placeholder="Add your comment here" required></textarea>
+                        <button type="submit">Submit Comment</button>
+                    </form>
+                    
+                    <!-- Display comments -->
+                    <div>
+                        <h4>Comments:</h4>
+                        {% if post.comments %}
+                            <ul>
+                                {% for comment in post.comments %}
+                                    <li>
+                                        <p>{{ comment.content }}</p>
+                                        <small>Commented by {{ comment.user.first_name }} on {{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No comments yet.</p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No blog posts available.</p>
+    {% endif %}
+{% endblock %}

@@ -6,7 +6,7 @@ from models import User, Note, BlogPost, Comment
 views = Blueprint('views', __name__)
 
 @views.route('/home', methods=['GET', 'POST'])
-@login_required
+
 def show_blog_posts():
     if request.method == 'POST':
         title = request.form.get('title')
@@ -43,7 +43,6 @@ def add_comment(post_id):
 def show_all_blog_posts():
     blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
     return render_template('all_blog_posts.html', blog_posts=blog_posts)
-
 
     
 
