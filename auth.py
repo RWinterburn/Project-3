@@ -5,6 +5,8 @@ from app import db
 
 auth = Blueprint('auth', __name__)
 
+
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -86,7 +88,7 @@ def profile():
     return render_template('profile.html', user=user)
 
 
-@auth.route('/notes')
+@auth.route('/')
 def home():
     public_notes = Note.query.filter_by(is_public=True).all()
     print(public_notes)  # Print notes to console

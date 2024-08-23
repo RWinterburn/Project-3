@@ -5,6 +5,9 @@ from app import db
 
 profile = Blueprint('profile', __name__)
 
+
+
+
 @profile.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile_page():
