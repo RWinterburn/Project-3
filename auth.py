@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session, jsonify
 from werkzeug.security import check_password_hash, generate_password_hash
-from models import User, Note  # Ensure Note is imported
+from flask_login import login_user, logout_user, current_user, login_required  # Import login_user
+from models import User, Note
 from app import db
+
 
 auth = Blueprint('auth', __name__)
 
@@ -14,15 +16,12 @@ def login():
         password = request.form.get('password')
 
         user = User.query.filter_by(email=email).first()
-        if user:
-            if check_password_hash(user.password, password):
-                flash('Log in success', category='success')
-                session['user_id'] = user.id
-                return redirect(url_for('auth.profile'))
-            else:
-                flash('Password is incorrect', category='error')
+        if user and check_password_hash(user.password, password):
+            login_user(user)  # Use login_user to handle session management
+            flash('Log in success', category='success')
+            return redirect(url_for('views.show_blog_posts'))  # Redirect to the blog posts page
         else:
-            flash('Email does not exist', category='error')
+            flash('Invalid email or password', category='error')
 
     return render_template('login.html')
 
