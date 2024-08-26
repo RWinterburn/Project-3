@@ -61,6 +61,21 @@ def delete_blog_post(post_id):
     
     return redirect(url_for('views.show_blog_posts'))
     
+    @views.route('/delete_comment/<int:comment_id>', methods=['POST'])
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    
+    # Check if the current user is the owner of the comment
+    if comment.user_id != current_user.id:
+        flash('You do not have permission to delete this comment.', 'danger')
+        return redirect(url_for('views.show_blog_posts'))
+    
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Comment deleted successfully!', 'success')
+    
+    return redirect(url_for('views.show_blog_posts'))
 
 
 
