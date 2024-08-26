@@ -44,6 +44,22 @@ def show_all_blog_posts():
     blog_posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
     return render_template('all_blog_posts.html', blog_posts=blog_posts)
 
+
+@views.route('/delete_blog_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_blog_post(post_id):
+    blog_post = BlogPost.query.get_or_404(post_id)
+    
+    # Check if the current user is the owner of the blog post
+    if blog_post.user_id != current_user.id:
+        flash('You do not have permission to delete this post.', 'danger')
+        return redirect(url_for('views.show_blog_posts'))
+    
+    db.session.delete(blog_post)
+    db.session.commit()
+    flash('Blog post deleted successfully!', 'success')
+    
+    return redirect(url_for('views.show_blog_posts'))
     
 
 
