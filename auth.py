@@ -84,20 +84,24 @@ def home():
 @auth.route('/delete-note', methods=['POST'])
 @login_required
 def delete_note():
+    # Extract data from the request
     data = request.get_json()
     note_id = data.get('noteId')
-    
+
     if not note_id:
         return jsonify({'error': 'Note ID not provided'}), 400
 
+    # Query for the note
     note = Note.query.get(note_id)
-    
+
     if not note:
         return jsonify({'error': 'Note not found'}), 404
 
+    # Check if the current user is the owner of the note
     if note.user_id != current_user.id:
         return jsonify({'error': 'Unauthorized'}), 403
 
+    # Try to delete the note and commit the transaction
     try:
         db.session.delete(note)
         db.session.commit()
