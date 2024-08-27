@@ -3,10 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
+from flask_admin import Admin
 
 # Initialize the database
 db = SQLAlchemy()
 DB_NAME = "database.db"
+admin = Admin()
 
 
 def create_app():
@@ -18,6 +20,7 @@ def create_app():
 
     # Initialize the database with the app
     db.init_app(app)
+    admin.init_app(app)
     
     # Import models here to avoid circular imports
     from models import User, Note, BlogPost, Comment
