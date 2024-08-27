@@ -4,6 +4,7 @@ from os import path
 from flask_login import LoginManager
 from flask_wtf.csrf import CSRFProtect
 from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 # Initialize the database
 db = SQLAlchemy()
@@ -24,6 +25,11 @@ def create_app():
     
     # Import models here to avoid circular imports
     from models import User, Note, BlogPost, Comment
+
+    admin.add_view(ModelView(User, db.session))
+    # You can add other models similarly if needed
+    admin.add_view(ModelView(BlogPost, db.session))
+    admin.add_view(ModelView(Comment, db.session))
 
     # Initialize LoginManager
     login_manager = LoginManager()
