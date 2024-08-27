@@ -57,7 +57,8 @@
                                         
                                         <!-- Form to delete the comment -->
                                         {% if current_user.id == comment.user_id %}
-                                            <form action="{{ url_for('views.delete_comment', comment_id=comment.id) }}" method="POST" style="display:inline;" {{ csrf_token() }}>
+                                            <form action="{{ url_for('views.delete_comment', comment_id=comment.id) }}" method="POST" style="display:inline;">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                                 <button type="submit" class="btn btn-danger">Delete Comment</button>
                                             </form>
                                         {% endif %}
