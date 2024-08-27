@@ -23,3 +23,8 @@ contact heroku about issue signing up to deploy website
 
 make it so admin can only delete blog posts
 figure out why url isnt working for home
+
+to do
+
+add admin role
+make sure users can delete thier profiles

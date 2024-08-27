@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request, flash, redirect
-from flask_login import login_required, current_user, LoginManager
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_required, current_user, logout_user
 from models import User
 from app import db
+from flask_wtf.csrf import CSRFProtect
 
 profile = Blueprint('profile', __name__)
 
@@ -63,3 +64,4 @@ def sign_up():
             return redirect(url_for('auth.login'))
     
     return render_template('sign-up.html', form=form)
+

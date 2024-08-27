@@ -49,33 +49,36 @@ def show_all_blog_posts():
 @login_required
 def delete_blog_post(post_id):
     blog_post = BlogPost.query.get_or_404(post_id)
-    
-    # Check if the current user is the owner of the blog post
-    if blog_post.user_id != current_user.id:
+
+    # Check if the current user is the owner OR an admin
+    if blog_post.user_id != current_user.id and not current_user.is_admin:
         flash('You do not have permission to delete this post.', 'danger')
         return redirect(url_for('views.show_blog_posts'))
-    
+
     db.session.delete(blog_post)
     db.session.commit()
     flash('Blog post deleted successfully!', 'success')
-    
+
     return redirect(url_for('views.show_blog_posts'))
-    
-    @views.route('/delete_comment/<int:comment_id>', methods=['POST'])
+
+@views.route('/delete_comment/<int:comment_id>', methods=['POST'])
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
-    
-    # Check if the current user is the owner of the comment
-    if comment.user_id != current_user.id:
+
+
+    # Check if the current user is the owner   
+
+    if comment.user_id != current_user.id and not current_user.is_admin:
         flash('You do not have permission to delete this comment.', 'danger')
         return redirect(url_for('views.show_blog_posts'))
-    
+
     db.session.delete(comment)
     db.session.commit()
     flash('Comment deleted successfully!', 'success')
-    
+
     return redirect(url_for('views.show_blog_posts'))
+
 
 
 

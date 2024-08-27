@@ -1,43 +1,42 @@
 {% extends "base.html" %}
 
-{% block title %} Home {% endblock %}
+{% block title %} Profile {% endblock %}
 
 {% block content %}
-<title>Profile</title>
-</head>
-<body>
-    <h1>Profile Page</h1>
-    <p>Welcome, {{ user.first_name }}!</p>
-    <p>Email: {{ user.email }}</p>
+<h1>Profile Page</h1>
+<p>Welcome, {{ user.first_name }}!</p>
+<p>Email: {{ user.email }}</p>
 
-    <form method="POST">
-        <label for="note">Add a new note:</label>
-        <textarea id="note" name="note" rows="4" cols="50"></textarea><br>
-        <label for="is_public">
-            <input type="checkbox" id="is_public" name="is_public"> Make this note public
-        </label><br>
-        <button type="submit">Add Note</button>
-    </form>
+<!-- Form for deleting profile -->
+<form id="delete-profile-form" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  <!-- Include CSRF token -->
+    <button type="button" onclick="deleteProfile()">Delete Profile</button>
+</form>
 
-    <h2>Your Notes:</h2>
-    <ul>
-        {% if user.notes %}
-            {% for note in user.notes %}
-                <li>{{ note.data }} (User ID: {{ user.first_name }})
-                    <button type="button" class="delete" onClick="deleteNote({{ note.id }})">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </li>
-            {% endfor %}
-        {% else %}
-            <li>No notes found.</li>
-        {% endif %}
-    </ul>
-</body>
-</html>
+<!-- Form for adding a new note -->
+<form method="POST">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  <!-- Include CSRF token -->
+    <label for="note">Add a new note:</label>
+    <textarea id="note" name="note" rows="4" cols="50"></textarea><br>
+    <label for="is_public">
+        <input type="checkbox" id="is_public" name="is_public"> Make this note public
+    </label><br>
+    <button type="submit">Add Note</button>
+</form>
 
-
-
-
-
+<h2>Your Notes:</h2>
+<ul>
+    {% if user.notes %}
+        {% for note in user.notes %}
+            <li>{{ note.data }} (User ID: {{ user.first_name }})
+                <button type="button" class="delete" onClick="deleteNote({{ note.id }})">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li>No notes found.</li>
+    {% endif %}
+</ul>
 {% endblock %}
+

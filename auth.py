@@ -3,8 +3,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, logout_user, current_user, login_required
 from models import User, Note
 from app import db
+from flask_wtf.csrf import CSRFProtect
 
 auth = Blueprint('auth', __name__)
+csrf = CSRFProtect()
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -113,6 +115,33 @@ def delete_note():
 @auth.errorhandler(500)
 def internal_error(e):
     return render_template('500.html'), 500
+
+
+@auth.route('/delete-profile', methods=['POST'])
+@login_required
+def delete_profile():
+    try:
+        user_id = current_user.id  # Get the current user's ID
+
+        # Query the user
+        user = User.query.get(user_id)
+
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+
+        # Delete the user's notes first, if they exist
+        Note.query.filter_by(user_id=user_id).delete()
+
+        # Now delete the user
+        db.session.delete(user)
+        db.session.commit()
+
+        logout_user()  # Log the user out after deleting their profile
+        return jsonify({'message': 'Profile deleted successfully'}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'error': 'An error occurred while deleting the profile'}), 500
+
 
 
 

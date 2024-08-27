@@ -27,3 +27,24 @@ function deleteNote(noteId) {
         alert('An unexpected error occurred'); // Notify the user of unexpected errors
     });
 }
+
+
+function deleteProfile() {
+    if (confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
+        fetch("{{ url_for('auth.delete_profile') }}", {
+            method: "POST",
+            body: JSON.stringify({})
+        }).then(response => response.json())
+          .then(data => {
+              if (data.message) {
+                  alert(data.message);
+                  window.location.href = "{{ url_for('auth.login') }}";  // Redirect to login page after deletion
+              } else if (data.error) {
+                  alert(data.error);
+              }
+          })
+          .catch(error => {
+              console.error("Error:", error);
+          });
+    }
+}
