@@ -1,8 +1,9 @@
 function deleteNote(noteId) {
-    fetch('/profile', {
+    fetch('/delete-note', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrf_token')  // Include CSRF token if needed
         },
         body: JSON.stringify({ noteId: noteId })
     })
@@ -28,23 +29,44 @@ function deleteNote(noteId) {
     });
 }
 
-
 function deleteProfile() {
     if (confirm('Are you sure you want to delete your profile? This action cannot be undone.')) {
-        fetch("{{ url_for('auth.delete_profile') }}", {
-            method: "POST",
+        fetch('/delete-profile', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrf_token')  // Include CSRF token if needed
+            },
             body: JSON.stringify({})
-        }).then(response => response.json())
-          .then(data => {
-              if (data.message) {
-                  alert(data.message);
-                  window.location.href = "{{ url_for('auth.login') }}";  // Redirect to login page after deletion
-              } else if (data.error) {
-                  alert(data.error);
-              }
-          })
-          .catch(error => {
-              console.error("Error:", error);
-          });
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message) {
+                alert(data.message);
+                window.location.href = '/login';  // Redirect to login page after deletion
+            } else if (data.error) {
+                alert(data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 }
+
+// Utility function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+

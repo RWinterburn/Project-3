@@ -22,20 +22,24 @@
     <title>{% block title %}Home{% endblock %}</title>
 </head>
 <body>
-  <nav id="nav" class ="navbar navbar-expand-lg navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link" id="login" href="/login">Login </a>
-            <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up </a>
-            <a class="nav-item nav-link" id="home" href="/home">Home </a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout </a>
-            <a class="nav-item nav-link" id="profile" href="/profile">profile </a>
+    <nav id="nav" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbar">
+            <div class="navbar-nav">
+                {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" id="home" href="/home">Home </a>
+                    <a class="nav-item nav-link" id="profile" href="/profile">Profile </a>
+                    <a class="nav-item nav-link" id="logout" href="/logout">Logout </a>
+                {% else %}
+                    <a class="nav-item nav-link" id="home" href="/home">Home </a>
+                    <a class="nav-item nav-link" id="login" href="/login">Login </a>
+                    <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up </a>
+                {% endif %}
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -120,30 +124,5 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"
   ></script>
-  <script>
-    function deleteNote(noteId) {
-        fetch('/delete-note', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ noteId: noteId })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.message) {
-                alert(data.message);  // Notify the user of success
-                location.reload();  // Reload the page to reflect changes
-            } else if (data.error) {
-                alert(data.error);  // Notify the user of the error
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
-
-
-
-
 </body>
 </html>

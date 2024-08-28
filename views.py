@@ -80,6 +80,30 @@ def delete_comment(comment_id):
     return redirect(url_for('views.show_blog_posts'))
 
 
+@views.route('/delete_note/<int:note_id>', methods=['POST'])
+@login_required
+def delete_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    
+    # Ensure that the current user is authorized to delete this note
+    if note.user_id != current_user.id:
+        flash('You do not have permission to delete this note.', 'danger')
+        return redirect(url_for('auth.profile'))
+
+    try:
+        db.session.delete(note)
+        db.session.commit()
+        flash('Note deleted successfully!', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash('An error occurred while deleting the note.', 'danger')
+
+    return redirect(url_for('auth.profile'))
+
+
+
+
+
 
 
 

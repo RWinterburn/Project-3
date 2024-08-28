@@ -83,64 +83,8 @@ def home():
     print(public_notes)  # Print notes to console
     return render_template('home.html', public_notes=public_notes)
 
-@auth.route('/delete-note', methods=['POST'])
-@login_required
-def delete_note():
-    # Extract data from the request
-    data = request.get_json()
-    note_id = data.get('noteId')
-
-    if not note_id:
-        return jsonify({'error': 'Note ID not provided'}), 400
-
-    # Query for the note
-    note = Note.query.get(note_id)
-
-    if not note:
-        return jsonify({'error': 'Note not found'}), 404
-
-    # Check if the current user is the owner of the note
-    if note.user_id != current_user.id:
-        return jsonify({'error': 'Unauthorized'}), 403
-
-    # Try to delete the note and commit the transaction
-    try:
-        db.session.delete(note)
-        db.session.commit()
-        return jsonify({'message': 'Note deleted successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': 'An error occurred while deleting the note'}), 500
-
-@auth.errorhandler(500)
-def internal_error(e):
-    return render_template('500.html'), 500
 
 
-@auth.route('/delete-profile', methods=['POST'])
-@login_required
-def delete_profile():
-    try:
-        user_id = current_user.id  # Get the current user's ID
-
-        # Query the user
-        user = User.query.get(user_id)
-
-        if not user:
-            return jsonify({'error': 'User not found'}), 404
-
-        # Delete the user's notes first, if they exist
-        Note.query.filter_by(user_id=user_id).delete()
-
-        # Now delete the user
-        db.session.delete(user)
-        db.session.commit()
-
-        logout_user()  # Log the user out after deleting their profile
-        return jsonify({'message': 'Profile deleted successfully'}), 200
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({'error': 'An error occurred while deleting the profile'}), 500
 
 
 
