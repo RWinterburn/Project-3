@@ -80,25 +80,34 @@ def delete_comment(comment_id):
     return redirect(url_for('views.show_blog_posts'))
 
 
-@views.route('/delete_note/<int:note_id>', methods=['POST'])
+
+
+@views.route('/delete_profile', methods=['POST'])
 @login_required
-def delete_note(note_id):
-    note = Note.query.get_or_404(note_id)
-    
-    # Ensure that the current user is authorized to delete this note
-    if note.user_id != current_user.id:
-        flash('You do not have permission to delete this note.', 'danger')
-        return redirect(url_for('auth.profile'))
+def delete_profile():
+    user_id = current_user.id  # Get the current user's ID
 
     try:
-        db.session.delete(note)
+        # Query the user
+        user = User.query.get_or_404(user_id)
+
+        # Delete the user's notes first, if they exist
+        Note.query.filter_by(user_id=user_id).delete()
+
+        # Now delete the user
+        db.session.delete(user)
         db.session.commit()
-        flash('Note deleted successfully!', 'success')
+
+        # Log the user out after deleting their profile
+        logout_user()
+
+        flash('Profile deleted successfully!', 'success')
+        return redirect(url_for('main.index'))  # Redirect to a safe page (e.g., home page)
     except Exception as e:
         db.session.rollback()
-        flash('An error occurred while deleting the note.', 'danger')
+        flash('An error occurred while deleting the profile.', 'danger')
+        return redirect(url_for('auth.profile'))  # Redirect back to the profile page or a safe page
 
-    return redirect(url_for('auth.profile'))
 
 
 
