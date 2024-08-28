@@ -28,3 +28,6 @@ to do
 
 add admin role
 make sure users can delete thier profiles
+
+
+add admin restrictions

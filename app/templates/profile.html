@@ -7,6 +7,10 @@
 <p>Welcome, {{ user.first_name }}!</p>
 <p>Email: {{ user.email }}</p>
 
+{% if user.is_admin %}
+    <p><a href="{{ url_for('admin.index') }}">Go to Admin Panel</a></p>
+{% endif %}
+
 <!-- Form for deleting profile -->
 <form id="delete-profile-form" method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  <!-- Include CSRF token -->
