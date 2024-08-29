@@ -3,12 +3,14 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <h1>Gig reviews</h1>
+    <h1 class="title-gig">Gig reviews</h1>
 
     <section class="intro-section">Welcome to gig reviews, here you can write reviews about the latest gigs you have been to see</section>
 
     {% if current_user.is_authenticated %}
         <!-- Form to add a new blog post -->
+         <div class="container-review">
+            
         <h2>Add your thoughts on the latest gig you went to</h2>
         <form method="POST" action="{{ url_for('views.show_blog_posts') }}">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -20,6 +22,7 @@
             
             <button type="submit" class="btn btn-success">Add Review</button>
         </form>
+    </div>
     {% else %}
         <p>You need to <a href="{{ url_for('auth.login') }}">log in</a> to add a gig review.</p>
     {% endif %}
@@ -31,6 +34,7 @@
         <h3>{{ post.title }}</h3>
         <p>{{ post.content }}</p>
         <small>Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+    
         
         <!-- Edit and Delete options -->
         {% if current_user.id == post.user_id or current_user.is_admin %}

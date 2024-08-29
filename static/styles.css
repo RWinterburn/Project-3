@@ -8,3 +8,16 @@ footer {position: sticky}
 ul {list-style: none;
     text-align: center;}
 
+.title-gig {text-align: center;
+padding: 2rem;
+background-color: aqua;}
+
+.container-review{ text-align: center;
+background-color: aqua;
+margin: 0;
+padding: 2rem;}
+
+.container-review, h1 {
+    padding: 2rem;
+    background-color: aquamarine;
+}
