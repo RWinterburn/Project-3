@@ -175,30 +175,30 @@ def edit_note(note_id):
     # Check if the current user is the owner of the note
     if note.user_id != current_user.id:
         flash('You do not have permission to edit this note.', 'danger')
-        return redirect(url_for('auth.profile'))  # Redirect to the notes list or another safe page
+        return redirect(url_for('auth.profile'))
 
     if request.method == 'POST':
-        # Get updated content from the form
-        updated_content = request.form.get('data')
+        # Get updated data from the form
+        updated_data = request.form.get('data')
 
-        # Update the note if the content is not empty
-        if updated_content:
-            note.content = updated_content
+        # Update the note if the data is not empty
+        if updated_data:
+            note.data = updated_data
 
             try:
                 db.session.commit()
                 flash('Note updated successfully!', 'success')
-                
             except Exception as e:
                 db.session.rollback()
                 flash('An error occurred while updating the note.', 'danger')
 
-            return redirect(url_for('auth.profile'))  # Redirect back to the notes list or another safe page
+            return redirect(url_for('auth.profile'))
         else:
             flash('Content cannot be empty.', 'danger')
 
-    # Render the edit form with the existing note content
+    # Render the edit form with the existing note data
     return render_template('edit_note.html', note=note)
+
 
 
 

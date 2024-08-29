@@ -11,8 +11,8 @@
 
     <form action="{{ url_for('views.edit_note', note_id=note.id) }}" method="POST">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <label for="content">Content:</label><br>
-        <textarea id="content" name="content" rows="10" cols="50">{{ note.content }}</textarea><br><br>
+        <label for="data">Content:</label><br>
+        <textarea id="data" name="data" rows="10" cols="50">{{ note.data }}</textarea><br><br>
         
         <button type="submit">Update Note</button>
     </form>
@@ -20,3 +20,4 @@
     <a href="{{ url_for('auth.profile') }}">Cancel</a>
 </body>
 </html>
+
