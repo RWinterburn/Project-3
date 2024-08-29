@@ -132,6 +132,75 @@ def delete_note(note_id):
     return redirect(url_for('auth.profile'))  # Redirect back to the profile page or a safe page
 
 
+@views.route('/edit_blog_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_blog_post(post_id):
+    blog_post = BlogPost.query.get_or_404(post_id)
+
+    # Check if the current user is the owner OR an admin
+    if blog_post.user_id != current_user.id and not current_user.is_admin:
+        flash('You do not have permission to edit this post.', 'danger')
+        return redirect(url_for('views.show_blog_posts'))
+
+    if request.method == 'POST':
+        # Get updated title and content from the form
+        updated_title = request.form.get('title')
+        updated_content = request.form.get('content')
+
+        # Update the blog post fields if not empty
+        if updated_title:
+            blog_post.title = updated_title
+        if updated_content:
+            blog_post.content = updated_content
+
+        try:
+            db.session.commit()
+            flash('Blog post updated successfully!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while updating the post.', 'danger')
+
+        return redirect(url_for('views.show_blog_posts'))
+
+    # Render the edit form with the existing blog post content
+    return render_template('edit_blog_post.html', blog_post=blog_post)
+
+
+
+@views.route('/edit_note/<int:note_id>', methods=['GET', 'POST'])
+@login_required
+def edit_note(note_id):
+    note = Note.query.get_or_404(note_id)
+
+    # Check if the current user is the owner of the note
+    if note.user_id != current_user.id:
+        flash('You do not have permission to edit this note.', 'danger')
+        return redirect(url_for('auth.profile'))  # Redirect to the notes list or another safe page
+
+    if request.method == 'POST':
+        # Get updated content from the form
+        updated_content = request.form.get('data')
+
+        # Update the note if the content is not empty
+        if updated_content:
+            note.content = updated_content
+
+            try:
+                db.session.commit()
+                flash('Note updated successfully!', 'success')
+                
+            except Exception as e:
+                db.session.rollback()
+                flash('An error occurred while updating the note.', 'danger')
+
+            return redirect(url_for('auth.profile'))  # Redirect back to the notes list or another safe page
+        else:
+            flash('Content cannot be empty.', 'danger')
+
+    # Render the edit form with the existing note content
+    return render_template('edit_note.html', note=note)
+
+
 
 
 

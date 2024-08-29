@@ -25,18 +25,22 @@
     {% if blog_posts %}
         <ul>
             {% for post in blog_posts %}
-                <li>
-                    <h3>{{ post.title }}</h3>
-                    <p>{{ post.content }}</p>
-                    <small>Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
-                    
-                    <!-- Form to delete the blog post -->
-                    {% if current_user.id == post.user_id %}
-                        <form action="{{ url_for('views.delete_blog_post', post_id=post.id) }}" method="POST" style="display:inline;">
-                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                            <button type="submit" class="btn btn-danger">Delete Post</button>
-                        </form>
-                    {% endif %}
+    <li>
+        <h3>{{ post.title }}</h3>
+        <p>{{ post.content }}</p>
+        <small>Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+        
+        <!-- Edit and Delete options -->
+        {% if current_user.id == post.user_id or current_user.is_admin %}
+            <!-- Edit Button -->
+            <a href="{{ url_for('views.edit_blog_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
+
+            <!-- Delete Form -->
+            <form action="{{ url_for('views.delete_blog_post', post_id=post.id) }}" method="POST" style="display:inline;">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-danger">Delete Post</button>
+            </form>
+        {% endif %}
                     
                     <!-- Comment form -->
                     <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST">
