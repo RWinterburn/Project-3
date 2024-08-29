@@ -4,3 +4,7 @@ background-color: aliceblue;}
 
 footer {position: sticky}
 
+
+ul {list-style: none;
+    text-align: center;}
+

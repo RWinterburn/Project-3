@@ -21,13 +21,11 @@
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  <!-- Include CSRF token -->
     <label for="note">Add a new note:</label>
     <textarea id="note" name="note" rows="4" cols="50"></textarea><br>
-    <label for="is_public">
-        <input type="checkbox" id="is_public" name="is_public"> Make this note public
-    </label><br>
-    <button type="submit">Add Note</button>
+
+    <button type="submit">Add gig</button>
 </form>
 
-<h2>Your Notes:</h2>
+<h2>Gigs wishlist:</h2>
 <ul>
     {% if user.notes %}
         {% for note in user.notes %}

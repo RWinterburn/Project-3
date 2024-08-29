@@ -3,23 +3,25 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <h1>Home Page</h1>
+    <h1>Gig reviews</h1>
+
+    <section class="intro-section">Welcome to gig reviews, here you can write reviews about the latest gigs you have been to see</section>
 
     {% if current_user.is_authenticated %}
         <!-- Form to add a new blog post -->
-        <h2>Add a New Blog Post</h2>
+        <h2>Add your thoughts on the latest gig you went to</h2>
         <form method="POST" action="{{ url_for('views.show_blog_posts') }}">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <label for="title">Title:</label>
+            <label for="title">Who did you go and see?</label><br>
             <input type="text" id="title" name="title" required><br><br>
             
-            <label for="content">Content:</label><br>
+            <label for="content">Your review:</label><br>
             <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
             
-            <button type="submit" class="btn btn-success">Add Blog Post</button>
+            <button type="submit" class="btn btn-success">Add Review</button>
         </form>
     {% else %}
-        <p>You need to <a href="{{ url_for('auth.login') }}">log in</a> to add a blog post.</p>
+        <p>You need to <a href="{{ url_for('auth.login') }}">log in</a> to add a gig review.</p>
     {% endif %}
 
     {% if blog_posts %}
@@ -77,6 +79,8 @@
             {% endfor %}
         </ul>
     {% else %}
-        <p>No blog posts available.</p>
+        <p>No reviews available.</p>
     {% endif %}
+
+
 {% endblock %}
