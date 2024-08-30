@@ -17,3 +17,22 @@
 
 .intro-section{padding: 5px;
 text-align: center;}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+h3 {
+    color: #2c3e50;
+}
+p {
+    line-height: 1.6;
+}
+small {
+    color: #7f8c8d;
+}
