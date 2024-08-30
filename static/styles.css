@@ -7,7 +7,7 @@ body {
 }
 
 
-
+.h3-form{text-align: center;}
 
 .title-gig {
     text-align: center;
@@ -363,3 +363,6 @@ color: white;}
 .col-md-2{text-align: center;}
 
 
+.nav-title{color: white;
+font-size: large;
+padding: 2px;}
