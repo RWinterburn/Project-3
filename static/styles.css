@@ -1,38 +1,365 @@
-.container-review{    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light gray background for the whole page */
+    margin: 0;
+    padding: 0;
+    color: #333; /* Dark gray text color for readability */
 }
 
-.container-review, h2{text-align: center;}
+
+
+
+.title-gig {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 36px; /* Prominent title size */
+    color: #ecf0f1; /* Light text color on dark background */
+}
+
+.intro-section {
+    background-color: #2c3e50; /* Dark background for contrast */
+    color: #ecf0f1; /* Light text color for readability */
+    padding: 40px 20px; /* Spacing around the content */
+    text-align: center; /* Center-align text */
+    border-bottom: 1px solid #34495e; /* Subtle border for separation */
+    margin-bottom: 40px; /* Space below the section */
+}
+
+.intro-section p {
+    font-size: 18px; /* Adjusted font size for readability */
+    margin: 0; /* Remove default margin */
+    line-height: 1.6; /* Improve readability with line spacing */
+}
+
+.page-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.container-review {
+    flex: 1;
+    background-color: #fff; /* White background for the form container */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 350px;
+}
+
+.container-review h3 {
+    font-size: 22px;
+    color: #2c3e50; /* Dark color for the heading */
+    margin-bottom: 20px;
+}
+
+.container-review label {
+    font-size: 16px;
+    color: #34495e; /* Subtle dark color for labels */
+    margin-bottom: 5px;
+    display: block;
+}
+
+.container-review input[type="text"],
+.container-review textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.container-review button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #2ecc71; /* Green button color */
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.container-review button:hover {
+    background-color: #27ae60; /* Darker green on hover */
+}
 
 .container-blog {
-    width: 80%;
-    margin: 20px auto;
-    background-color: #fff;
+    flex: 2;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    background-color: #3a3a3a; /* White background for the blog container */
 }
 
-.intro-section{padding: 5px;
-text-align: center;}
-
-ul {
+.container-blog ul {
     list-style-type: none;
     padding: 0;
+    margin: 0;
 }
-li {
-    margin-bottom: 40px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #ddd;
+
+.blog-post-item {
+    background-color: #ffffff; /* White background for each post item */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Space between blog posts */
+    border: 1px solid #ddd; /* Light border to define the post area */
 }
-h3 {
-    color: #2c3e50;
+
+.blog-post-title {
+    color: #2c3e50; /* Dark color for title */
+    font-size: 24px; /* Larger font size for title */
+    margin-top: 0;
+    margin-bottom: 10px;
 }
-p {
+
+.blog-post-content {
+    color: #333; /* Dark color for content text */
     line-height: 1.6;
+    margin-bottom: 10px;
+ 
+    padding: 2px;
+    border-radius: 0%;
+
 }
-small {
+
+.blog-post-meta {
+    display: block; /* Makes sure the meta information is on a new line */
+    color: #7f8c8d; /* Subtle color for metadata */
+    font-size: 14px; /* Slightly smaller font size for meta information */
+}
+
+.btn {
+    padding: 10px 20px; /* Added padding for buttons */
+    margin: 5px 0;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff; /* White text color for buttons */
+    display: inline-block; /* Ensures button styling */
+}
+
+.btn-primary {
+    background-color: #3498db; /* Blue button color */
+}
+
+.btn-danger {
+    background-color: #e74c3c; /* Red button color */
+}
+
+.btn-success {
+    background-color: #2ecc71; /* Green button color */
+}
+
+.comment-contain {
+    margin-top: 20px;
+    
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+ 
+}
+
+.comment-display h6 {
+    margin-top: 20px;
+    color: #2c3e50; /* Dark color for section heading */
+    font-size: 14px;
+    
+    
+}
+
+.comment-display ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    background-color:#afafaf ;
+}
+
+.comment-display li {
+    background-color: #ffffff; /* White background for comments */
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd; /* Light border for comments */
+    background-color:#ffffffc9 ;
+}
+
+.comment-display p {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.comment-display small {
+    display: block;
+    color: #7f8c8d; /* Subtle color for comment metadata */
+    margin-top: 5px;
+}
+
+h4 {
+    background-color: rgb(159, 210, 255); /* Light blue background color */
+    text-decoration: underline; /* Underline text */
+    padding: 5px; /* Optional: Adds some padding around the text */
+    border-radius: 3px; /* Optional: Rounds the corners of the background */
+}
+
+
+.container-review {
+    background-color: #fff; /* White background for the container */
+    padding: 20px; /* Padding inside the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a subtle 3D effect */
+    max-width: 500px; /* Maximum width of the container */
+    margin: 20px auto; /* Center align and margin around container */
+}
+
+.container-review h3 {
+    font-size: 22px; /* Font size for the heading */
+    color: #2c3e50; /* Dark color for the heading text */
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+.container-review label {
+    font-size: 16px; /* Font size for labels */
+    color: #34495e; /* Color for label text */
+    margin-bottom: 5px; /* Space below the label */
+    display: block; /* Ensures label takes up the full width */
+}
+
+.container-review input[type="text"],
+.container-review textarea {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Padding inside the input and textarea */
+    margin-top: 5px; /* Space above the input and textarea */
+    margin-bottom: 20px; /* Space below the input and textarea */
+    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #ccc; /* Light border for input and textarea */
+    font-size: 14px; /* Font size inside input and textarea */
+}
+
+.container-review button {
+    padding: 10px 20px; /* Padding inside the button */
+    border-radius: 5px; /* Rounded corners for button */
+    background-color: #2ecc71; /* Green background color for the button */
+    color: #fff; /* White text color */
+    font-size: 16px; /* Font size for the button text */
+    border: none; /* No border for the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center; /* Center align text */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+    align-items: center;
+    display: flex;
+}
+
+.container-review button:hover {
+    background-color: #27ae60; /* Darker green background color on hover */
+}
+
+.h1-profile{text-align: center;
+font-family: Arial, Helvetica, sans-serif;
+background-color: #2c3e50;
+color: white;}
+
+
+.info{text-align: center;
+    font-size: larger;
+    background-color: #2c3e50;
+    color: white;
+}
+
+.info, a {color: aliceblue;}
+
+/* General styles for the wishlist */
+.wishlist {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    font-family: 'Arial', sans-serif;
+}
+
+.wishlist h5 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+/* Style for each list item */
+.wishlist li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.wishlist li:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the note text */
+.wishlist li span {
+    flex-grow: 1;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+/* Container for buttons */
+.wishlist .button-container {
+    display: flex;
+    gap: 2px; /* Space between buttons */
+}
+
+/* Style for buttons */
+.btn {
+    padding: 6px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-primary {
+    background-color: #3498db;
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+}
+
+.btn-danger {
+    background-color: #e74c3c;
+}
+
+.btn-danger:hover {
+    background-color: #c0392b;
+}
+
+/* Style for the no notes message */
+.wishlist li.empty {
+    font-style: italic;
     color: #7f8c8d;
 }
+
+.col-md-2{text-align: center;}
+
+

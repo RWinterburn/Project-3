@@ -16,7 +16,7 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 
     
     <title>{% block title %}Home{% endblock %}</title>
@@ -28,12 +28,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
             <div class="navbar-nav">
+              <a class="nav-item nav-link" id="home" href="/home">Home </a>
                 {% if current_user.is_authenticated %}
-                    <a class="nav-item nav-link" id="home" href="/home">Home </a>
+                    
                     <a class="nav-item nav-link" id="profile" href="/profile">Profile </a>
                     <a class="nav-item nav-link" id="logout" href="/logout">Logout </a>
                 {% else %}
-                    <a class="nav-item nav-link" id="home" href="/home">Home </a>
+                    
                     <a class="nav-item nav-link" id="login" href="/login">Login </a>
                     <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up </a>
                 {% endif %}
@@ -74,40 +75,25 @@
 </div>
 
 <footer class="bg-dark text-white pt-4">
-  <div class="container">
+    <div class="container">
       <div class="row">
-          <!-- Company Info -->
-          <div class="col-md-4">
-              <h5>Gig reviews</h5>
-              <p>From ears to eyes</p>
-          </div>
-          <!-- Useful Links -->
-          <div class="col-md-4">
-              <h5>Useful Links</h5>
-              <ul class="list-unstyled">
-                  <li><a href="#" class="text-white">Home</a></li>
-                  <li><a href="#" class="text-white">Write for us</a></li>
-                  <li><a href="#" class="text-white">Services</a></li>
-                  <li><a href="#" class="text-white">Contact</a></li>
-              </ul>
-          </div>
-          <!-- Contact Info -->
-          <div class="col-md-4">
-              <h5>Contact Us</h5>
-              <ul class="list-unstyled">
-                  <li><i class="fas fa-map-marker-alt"></i> 123 fakestreet, Yorkshire</li>
-                  <li><i class="fas fa-phone"></i> (123) 456-7890</li>
-                  <li><i class="fas fa-envelope"></i> email@email.com</li>
-              </ul>
-          </div>
+        <!-- Contact Info -->
+        <div class="col-12 text-center mt-3">
+          <h5>Contact Us</h5>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-map-marker-alt"></i> 123 Fakestreet, Yorkshire</li>
+            <li><i class="fas fa-phone"></i> (123) 456-7890</li>
+            <li><i class="fas fa-envelope"></i> email@email.com</li>
+          </ul>
+        </div>
       </div>
       <div class="row">
-          <div class="col-12 text-center mt-3">
-              <p>&copy; 2024 Gig reviews. All rights reserved.</p>
-          </div>
+        <div class="col-12 text-center mt-3">
+          <p>&copy; 2024 Gig Reviews. All rights reserved.</p>
+        </div>
       </div>
-  </div>
-</footer>
+    </div>
+  </footer>
 
     <script
     src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

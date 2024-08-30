@@ -3,44 +3,67 @@
 {% block title %} Profile {% endblock %}
 
 {% block content %}
-<h1>Profile Page</h1>
-<p>Welcome, {{ user.first_name }}!</p>
-<p>Email: {{ user.email }}</p>
+<h1 class="h1-profile">Profile Page</h1>
+<div class="info">
+<p class="welcome-profile">Welcome, {{ user.first_name }}!</p>
+<p class="welcome-email">Email: {{ user.email }}</p>
 
 {% if user.is_admin %}
-    <p><a href="{{ url_for('admin.index') }}">Go to Admin Panel</a></p>
+    <p class="admin-profile"><a href="{{ url_for('admin.index') }}">Go to Admin Panel</a></p>
 {% endif %}
 
 <form action="{{ url_for('views.delete_profile') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your profile? This action cannot be undone.');">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-    <button type="submit">Delete My Profile</button>
+    <button type="submit" class="btn-danger">Delete My Profile</button>
 </form>
+</div>
+
+<div class="container-review">
+            
+    <h3 class="h3-profile">Add your thoughts on the latest gig you went to</h3>
+    <form method="POST" action="{{ url_for('views.show_blog_posts') }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <label for="title" class="label-profile">Who did you go and see?</label><br>
+        <input type="text" id="title" name="title" required><br><br>
+        
+        <label for="content">Your review:</label><br>
+        <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
+        
+        <button type="submit" class="add-review">Add Review</button>
+    </form>
+
 
 <!-- Form for adding a new note -->
+ <div class="gig-wishlist">
 <form method="POST" action="{{ url_for('auth.profile') }}">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  <!-- Include CSRF token -->
-    <label for="note">Add a new note:</label>
+    <h2>Gigs wishlist:</h2>
+    <label for="note">Add a new gig you want to see:</label>
     <textarea id="note" name="note" rows="4" cols="50"></textarea><br>
 
     <button type="submit">Add gig</button>
 </form>
+</div>
+</div>
 
-<h2>Gigs wishlist:</h2>
-<ul>
+
+<ul class="wishlist">
+    <h5>Gigs you want to see</h5>
     {% if user.notes %}
         {% for note in user.notes %}
-            <li>{{ note.data }} (User ID: {{ user.first_name }})
+        
+            <li>{{ note.data }} 
                 <a href="{{ url_for('views.edit_note', note_id=note.id) }}" class="btn btn-primary">Edit</a>
                 <form action="{{ url_for('views.delete_note', note_id=note.id) }}" method="post">
                     
                     <input type="hidden" name="note_id" value="{{ note.id }}">
                     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <button type="submit">Delete Note</button>
+                    <button type="submit" class="btn btn-danger">Delete gig</button>
                 </form>
             </li>
         {% endfor %}
     {% else %}
-        <li>No notes found.</li>
+        <li>You don't have any gigs on your wishlist yet.</li>
     {% endif %}
 </ul>
 

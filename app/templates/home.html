@@ -3,73 +3,63 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-    <h1 class="title-gig">Gig reviews</h1>
+<section class="intro-section">
+    <h1 class="title-gig">Gig Reviews</h1>
+    <p>Welcome to Gig Reviews, where you can share and read about the latest gigs you've experienced.</p>
+</section>
 
-    <section class="intro-section">Welcome to gig reviews, here you can write reviews about the latest gigs you have been to see</section>
-
-    {% if current_user.is_authenticated %}
-        <!-- Form to add a new blog post -->
-         <div class="container-review">
-            
-        <h2>Add your thoughts on the latest gig you went to</h2>
-        <form method="POST" action="{{ url_for('views.show_blog_posts') }}">
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-            <label for="title">Who did you go and see?</label><br>
-            <input type="text" id="title" name="title" required><br><br>
-            
-            <label for="content">Your review:</label><br>
-            <textarea id="content" name="content" rows="5" cols="40" required></textarea><br><br>
-            
-            <button type="submit" class="btn btn-success">Add Review</button>
-        </form>
+{% if not current_user.is_authenticated %}
+    <div class="login-prompt">
+        <p>You need to <a href="{{ url_for('auth.sign_up') }}" class="btn btn-primary">make an account</a> to add a gig review.</p>
+        <p>If you already have an account, you can <a href="{{ url_for('auth.login') }}" class="btn btn-primary">sign in here</a> to add a gig review.</p>
     </div>
-    {% else %}
-        <p>You need to <a href="{{ url_for('auth.login') }}">log in</a> to add a gig review.</p>
-    {% endif %}
+{% endif %}
 
-    {% if blog_posts %}
+{% if blog_posts %}
     <div class="container-blog">
-        <ul>
+        <ul class="blog-post-list">
             {% for post in blog_posts %}
-    <li>
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.content }}</p>
-        <small>Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
-    
-        
-        <!-- Edit and Delete options -->
-        {% if current_user.id == post.user_id or current_user.is_admin %}
-            <!-- Edit Button -->
-            <a href="{{ url_for('views.edit_blog_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
+                <li class="blog-post-item">
+                    <h2 class="blog-post-title">{{ post.title }}</h2>
+                    <p class="blog-post-content">{{ post.content }}</p>
+                    <small class="blog-post-meta">Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
 
-            <!-- Delete Form -->
-            <form action="{{ url_for('views.delete_blog_post', post_id=post.id) }}" method="POST" style="display:inline;">
-                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                <button type="submit" class="btn btn-danger">Delete Post</button>
-            </form>
-        {% endif %}
-                    
+                    <!-- Edit and Delete options -->
+                    {% if current_user.id == post.user_id or current_user.is_admin %}
+                        <div class="post-actions">
+                            <!-- Edit Button -->
+                            <a href="{{ url_for('views.edit_blog_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
+
+                            <!-- Delete Form -->
+                            <form action="{{ url_for('views.delete_blog_post', post_id=post.id) }}" method="POST" class="delete-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                <button type="submit" class="btn btn-danger">Delete Post</button>
+                            </form>
+                        </div>
+                    {% endif %}
+
                     <!-- Comment form -->
-                     <div class="comment-contain">
-                    <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST" class="comment-form">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                        <textarea name="comment" placeholder="Add your comment here" required></textarea>
-                        <button type="submit" class="btn btn-success">Submit Comment</button>
-                    </form>
-                </div>
+                    <div class="comment-contain">
+                        <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST" class="comment-form">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                            <textarea name="comment" placeholder="Add your comment here" required></textarea>
+                            <button type="submit" class="btn btn-success">Submit Comment</button>
+                        </form>
+                    </div>
+
                     <!-- Display comments -->
                     <div class="comment-display">
-                        <h4>Comments:</h4>
+                        <h6>User comments:</h6>
                         {% if post.comments %}
                             <ul>
                                 {% for comment in post.comments %}
-                                    <li>
+                                    <li class="comment-item">
                                         <p>{{ comment.content }}</p>
                                         <small>Commented by {{ comment.user.first_name }} on {{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
-                                        
+
                                         <!-- Form to delete the comment -->
                                         {% if current_user.id == comment.user_id %}
-                                            <form action="{{ url_for('views.delete_comment', comment_id=comment.id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ url_for('views.delete_comment', comment_id=comment.id) }}" method="POST" class="delete-form">
                                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                                 <button type="submit" class="btn btn-danger">Delete Comment</button>
                                             </form>
@@ -85,9 +75,8 @@
             {% endfor %}
         </ul>
     </div>
-    {% else %}
-        <p>No reviews available.</p>
-    {% endif %}
-
+{% else %}
+    <p>No reviews available.</p>
+{% endif %}
 
 {% endblock %}
