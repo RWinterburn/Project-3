@@ -24,13 +24,13 @@
                     <p class="blog-post-content">{{ post.content }}</p>
                     <small class="blog-post-meta">Posted by {{ post.user.first_name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
 
-                    <!-- Edit and Delete options -->
+
                     {% if current_user.id == post.user_id or current_user.is_admin %}
                         <div class="post-actions">
-                            <!-- Edit Button -->
+
                             <a href="{{ url_for('views.edit_blog_post', post_id=post.id) }}" class="btn btn-primary">Edit Post</a>
 
-                            <!-- Delete Form -->
+
                             <form action="{{ url_for('views.delete_blog_post', post_id=post.id) }}" method="POST" class="delete-form">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                 <button type="submit" class="btn btn-danger">Delete Post</button>
@@ -38,7 +38,6 @@
                         </div>
                     {% endif %}
 
-                    <!-- Comment form -->
                     <div class="comment-contain">
                         <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST" class="comment-form">
                             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
@@ -47,7 +46,7 @@
                         </form>
                     </div>
 
-                    <!-- Display comments -->
+
                     <div class="comment-display">
                         <h6>User comments:</h6>
                         {% if post.comments %}
@@ -57,7 +56,7 @@
                                         <p>{{ comment.content }}</p>
                                         <small>Commented by {{ comment.user.first_name }} on {{ comment.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
 
-                                        <!-- Form to delete the comment -->
+
                                         {% if current_user.id == comment.user_id %}
                                             <form action="{{ url_for('views.delete_comment', comment_id=comment.id) }}" method="POST" class="delete-form">
                                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>

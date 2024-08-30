@@ -33,10 +33,9 @@
     </form>
 
 
-<!-- Form for adding a new note -->
  <div class="gig-wishlist">
 <form method="POST" action="{{ url_for('auth.profile') }}">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  <!-- Include CSRF token -->
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>  
     <h2>Gigs wishlist:</h2>
     <label for="note">Add a new gig you want to see:</label>
     <textarea id="note" name="note" rows="4" cols="50"></textarea><br>

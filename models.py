@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150), nullable=False)
     first_name = db.Column(db.String(150), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
-    # Relationships
+
     notes = db.relationship('Note', backref='user', cascade="all, delete-orphan")
     comments = db.relationship('Comment', backref='user', cascade="all, delete-orphan")
     blog_posts = db.relationship('BlogPost', backref='user', cascade="all, delete-orphan")
@@ -31,7 +31,7 @@ class BlogPost(db.Model):
     content = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # Relationships
+
     comments = db.relationship('Comment', backref='blog_post', cascade="all, delete-orphan")
 
 class Comment(db.Model):
