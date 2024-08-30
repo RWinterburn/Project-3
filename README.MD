@@ -174,11 +174,15 @@ But I have gone with a grey/blue/white colour scheme for the majority of the web
 
 ## W3C Validation 
 Managed to fix these few errors by finding the lines of code referenced on the page and removing the stray tags and correctly formating the code. Here are the results. 
-![image](assets/docs/imgdocs/admin-dash.png)
+![image](assets/docs/imagedocs/admin-dash.png)
 
+![image](assets/docs/imagedocs/edit-blog-post.png)
 
-![image](documents/valid-css.png "valid css") 
+![image](assets/docs/imagedocs/edit-note.png)
 
+![image](assets/docs/imagedocs/login.png)
+
+![image](assets/docs/imagedocs/sign-up-valid.png)
 
 ### Am I Responsive 
 ![image](assets/docs/imgdocs/responsive.png)
