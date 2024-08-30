@@ -1,23 +1,19 @@
-/* More specific selector */
-body { color: #000000; 
-background-color: aliceblue;}
-
-footer {position: sticky}
-
-
-ul {list-style: none;
-    text-align: center;}
-
-.title-gig {text-align: center;
-padding: 2rem;
-background-color: aqua;}
-
-.container-review{ text-align: center;
-background-color: aqua;
-margin: 0;
-padding: 2rem;}
-
-.container-review, h1 {
-    padding: 2rem;
-    background-color: aquamarine;
+.container-review{    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
+
+.container-review, h2{text-align: center;}
+
+.container-blog {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.intro-section{padding: 5px;
+text-align: center;}

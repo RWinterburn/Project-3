@@ -28,6 +28,7 @@
     {% endif %}
 
     {% if blog_posts %}
+    <div class="container-blog">
         <ul>
             {% for post in blog_posts %}
     <li>
@@ -49,14 +50,15 @@
         {% endif %}
                     
                     <!-- Comment form -->
-                    <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST">
+                     <div class="comment-contain">
+                    <form action="{{ url_for('views.add_comment', post_id=post.id) }}" method="POST" class="comment-form">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                         <textarea name="comment" placeholder="Add your comment here" required></textarea>
                         <button type="submit" class="btn btn-success">Submit Comment</button>
                     </form>
-                    
+                </div>
                     <!-- Display comments -->
-                    <div>
+                    <div class="comment-display">
                         <h4>Comments:</h4>
                         {% if post.comments %}
                             <ul>
@@ -82,6 +84,7 @@
                 </li>
             {% endfor %}
         </ul>
+    </div>
     {% else %}
         <p>No reviews available.</p>
     {% endif %}
