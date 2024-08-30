@@ -1,39 +1,48 @@
-To do list
 
-figure out why style.css isnt working 
-
-make the footer stick to the bottom of the page 
-
-make sure all the backend works
-
-style the website into a blog website where users who have signed up can add and delete blog posts
-
-
-the main rationale for this website is so for users to log on and see updates towards the website and update thier profiles to their liking 
-
-MAJOR TO DO LIST 
-
-MAKE SURE USERS CAN CREATE, READ UPDATE AND DELETE STATUS'
-ADD REQUIREMENTS.TXT FILE
-DEFINE WHAT THE WEBSITE IS USED FOR (COMMUNITY NOTICE BOARD)
-
-MAKE SURE USERS CAN SEE OTHER PEOPLES NOTES ON THE PAGE ON THE MAIN HOME PAGE 
-
-contact heroku about issue signing up to deploy website
-
-make it so admin can only delete blog posts
-figure out why url isnt working for home
-
-to do
-
-add admin role
-make sure users can delete thier profiles
-
-
-add admin restrictions
 
 # Gig Reviews
 Gig reviews is a website where users can post about their gigs they have been to and would like to leave a review about it on the page it is aimed towards musical people and who have a love for music. It also lets users comment on blog posts, add thier own blog posts and ive also added a gig wishlist feature for gigs they want to see in the future
+
+# Rationale 
+The "Gig Reviews" website is designed to create a vibrant and interactive community platform for music enthusiasts. It provides a space for users to share their experiences and opinions on recent gigs they have attended. The platform enhances user engagement through various features that support content creation, interaction, and community building.
+
+## Key Features and Their Rationales
+
+### User Authentication and Access Control
+
+**Rationale:** 
+Restricting certain actions, such as posting reviews, to authenticated users helps maintain a high quality of content and encourages genuine contributions. By requiring users to sign up and log in, the site ensures accountability and enhances security. This restriction helps prevent spam and misuse, providing a trustworthy environment for sharing reviews.
+
+### Blog and Gig Review System
+
+**Rationale:**
+The core feature of the site is the ability for users to create, read, update, and delete (CRUD) their own blog posts about gigs. This system allows users to share their personal experiences, opinions, and ratings of the gigs they have attended. It fosters a community of music lovers who can connect over shared interests, creating a rich repository of reviews and discussions.
+
+### Personalized Blog Post Management
+
+**Rationale:**
+Allowing users to edit and delete their own posts provides control over content and ensures that users can correct or remove information as needed. Admins have broader control to manage content, maintaining the site's cleanliness and appropriateness. This functionality supports user autonomy while also ensuring the integrity and quality of the content presented on the platform.
+
+### Comment System
+
+**Rationale:**
+Enabling users to comment on blog posts enhances the platform's interactivity. It allows users to provide feedback, share additional thoughts, and engage in discussions, which contributes to a more engaging and dynamic community. This interaction helps build a sense of community and encourages active participation among users.
+
+### Security Measures
+
+**Rationale:**
+Implementing CSRF protection and secure handling of user input (such as comments) is crucial for protecting the site from common web vulnerabilities and ensuring the integrity of user data. These security measures help prevent attacks and unauthorized access, safeguarding both user information and the overall stability of the site.
+
+### Dynamic Content Display
+
+**Rationale:**
+Displaying user-generated content such as blog posts and comments dynamically ensures that the most recent and relevant information is visible to users. This feature keeps the content fresh and engaging, encouraging users to return and interact with new posts and comments.
+
+### Administrative Functionality
+
+**Rationale:**
+Providing admin functionality for managing users, posts, and comments ensures oversight and control over the content and user interactions. This feature is important for maintaining the site's quality and integrity, allowing admins to address issues and enforce community standards effectively.
+
 
 # User Stories
 The purpose of Gig reviews is to let users display their thoughts on the musicians they have seen recently and to see any other reviews about gigs they maybe interesed in from other users
@@ -62,31 +71,90 @@ But I have gone with a grey/blue/white colour scheme for the majority of the web
 
 
 
+# Data Schema Overview
+
+The **Gig Reviews** website uses Flask and SQLAlchemy for database management. The data schema defines the structure of our database tables and their relationships. Below is a detailed description of each table and its relationships.
+
+## Schema Breakdown
+
+### User Table (`User` Class)
+
+- **Table Name:** `users`
+- **Columns:**
+  - `id`: Unique identifier for each user (Primary Key).
+  - `email`: User’s email address (must be unique).
+  - `password`: User’s password.
+  - `first_name`: User’s first name.
+  - `is_admin`: Boolean flag to indicate if the user is an admin.
+- **Relationships:**
+  - `notes`: One-to-many relationship with the `Note` table (a user can have multiple notes).
+  - `comments`: One-to-many relationship with the `Comment` table (a user can have multiple comments).
+  - `blog_posts`: One-to-many relationship with the `BlogPost` table (a user can have multiple blog posts).
+
+### Note Table (`Note` Class)
+
+- **Table Name:** `notes`
+- **Columns:**
+  - `id`: Unique identifier for each note (Primary Key).
+  - `data`: Content of the note.
+  - `user_id`: Foreign Key linking to the `users` table.
+  - `is_public`: Boolean flag to indicate if the note is public.
+
+### BlogPost Table (`BlogPost` Class)
+
+- **Table Name:** `blog_posts`
+- **Columns:**
+  - `id`: Unique identifier for each blog post (Primary Key).
+  - `title`: Title of the blog post.
+  - `content`: Content of the blog post.
+  - `user_id`: Foreign Key linking to the `users` table.
+  - `created_at`: Timestamp of when the blog post was created.
+- **Relationships:**
+  - `comments`: One-to-many relationship with the `Comment` table (a blog post can have multiple comments).
+
+### Comment Table (`Comment` Class)
+
+- **Table Name:** `comments`
+- **Columns:**
+  - `id`: Unique identifier for each comment (Primary Key).
+  - `content`: Content of the comment.
+  - `user_id`: Foreign Key linking to the `users` table.
+  - `blog_post_id`: Foreign Key linking to the `blog_posts` table.
+  - `created_at`: Timestamp of when the comment was created.
+
+## Summary
+
+- **Tables:** `users`, `notes`, `blog_posts`, `comments`
+- **Primary Keys:** Unique identifiers for each table (`id` columns).
+- **Foreign Keys:** Links between tables (e.g., `user_id` in `notes` and `comments`, `blog_post_id` in `comments`).
+- **Relationships:**
+  - **One-to-Many:** One `User` can have multiple `notes`, `comments`, and `blog_posts`.
+  - **One-to-Many:** One `BlogPost` can have multiple `comments`.
+
+This schema ensures that data is organized efficiently and relationships between different entities are properly maintained. It provides a clear structure for how data is stored and linked within the application.
 
 
  # WireFrames Desktop
 
  For the wireframes I didn't have a wireframe designer so I designed the app on Adobe Photoshop.
+1. Wireframe for profile
+![image](assets/docs/imagedocs/wireframe-profile.png)
 
- ![image](assets/docs/imgdocs/oscarswireframe.png)
- Early Wireframe 
-   ![image](assets/docs/imgdocs/wireframe-oscars-main.png "Name page wireframe desktop")
-    Here is the wireframe for the main index page, it is a bit different from the final result as the website wasn't mobile friendly at the start so I modified it to make it more mobile friendly. 
-
-   ![image](assets/docs/imgdocs/wireframe-desktop-name.png "main quiz wireframe")
-    The Gallery wireframe.
+2. Wireframe for mainpage
+![image](assets/docs/imagedocs/wireframe-main-page.png)
 
 # Features 
 
-1. A Name bar where the username is required to move onto the next stage of the quiz.
-   ![image](assets/docs/imgdocs/empty-name.png)
-2. A right/wrong answer message depending on if the user got the answer correct or not.
-   ![image](assets/docs/imgdocs/wrong-answer.png)
-3. A try again button and score round up at the end of the quiz to show the total score for the user.
-   ![image](assets/docs/imgdocs/try-again.png)
-4. A feature using jquery to show the name on the users quiz card when they are playing the quiz. It also shows up at the end aswell.
-   ![image](assets/docs/imgdocs/name-entered.png)
-
+1. An admin dashboard for the admin to see the database
+   ![image](assets/docs/imagedocs/admin-dash.png)
+2. Blog form to submit a blog 
+   ![image](assets/docs/imagedocs/feature-blog.png)
+3. A nav bar so users can easily navigate the website
+   ![image](assets/docs/imagedocs/feature-nav-bar.png)
+4. Sign up form
+   ![image](assets/docs/imagedocs/feature-sign-up.png)
+5. login form
+   ![image](assets/docs/imagedocs/login-feature.png)
 ## Future features
  For the future features I would like to add a shop page to the website where the user can click on the image and buy the image from the website and for it to be printed onto a canvas.
 
@@ -103,7 +171,11 @@ But I have gone with a grey/blue/white colour scheme for the majority of the web
 * Font Awesome
 * Am I Reponsive
 * Jquery
-* Javascript
+* Jinja
+* SQL
+* Flask, admin, login and migrate and flaskSQLAlchemy
+* Werkzueg
+* WTForms
 
 # Manual testing 
 
@@ -174,7 +246,7 @@ But I have gone with a grey/blue/white colour scheme for the majority of the web
 
 ## W3C Validation 
 Managed to fix these few errors by finding the lines of code referenced on the page and removing the stray tags and correctly formating the code. Here are the results. 
-![image](assets/docs/imagedocs/admin-dash.png)
+
 
 ![image](assets/docs/imagedocs/edit-blog-post.png)
 
@@ -188,25 +260,36 @@ Managed to fix these few errors by finding the lines of code referenced on the p
 ![image](assets/docs/imgdocs/responsive.png)
 
 ### Lighthouse Report 
-![image](assets/docs/imgdocs/lighthouse.png)
-Lighthouse report looks good on this.
+![image](assets/docs/imagedocs/lighthouse.png)
+Lighthouse report.
 
 # Challenges and Bugs
-The only bugs I got were unclosed elements and stray tags. Some titles weren't formatted correctly which you can see here.
-At first the webpage was not valid as seen by this screenshot here 
-![image](assets/docs/imgdocs/jest-bug.png)
-![image](assets/docs/imgdocs/Jest-bug-two.png)
 
-I also ran into a script error which I managed to solve with some research.
-![image](assets/docs/imgdocs/script-error.png)
+1. CRSF Token wasn't in the right line of code
+![image](assets/docs/imagedocs/bug-docs/crsf-token.png)
 
-![image](assets/docs/imgdocs/script-fix.png)
+2. Url endpoints ended up conflicting and throwing the app off until i changed the route
+![image](assets/docs/imagedocs/bug-docs/end-point.png)
+![image](assets/docs/imagedocs/bug-docs/end-points.png)
 
-Here is also the invalid w3c html test ![image](assets/docs/imgdocs/w3c-valid-error.png)
+3. import bugs, resolved when I used captials correctly
+![image](assets/docs/imagedocs/bug-docs/import-error.png)
 
-Ran into a bug during media queries on CSS trying to make the start button show on below 320px but I couldn't figure out where I was going wrong.
+4. added user id later in the database and it wasnt being reconigzed until I migrated the database
+![image](assets/docs/imagedocs/bug-docs/no-user-id.png)
 
-I ran into another problem again on my Github, I had made a previous account called "Twinwinter" on my email address robertwinterburn@hotmail.co.uk and I had made a new account to make my name a bit more professional and readable (RWinterburn) but when I started making commits they came from "Twinwinter" on one and "RWinterburn" from another I don't know wether it was to do with me from switching from gitpod.io and codeanywhere to VScode need to figure this problem out for future developments as I haven't figured it out yet. So you will see commits from both of my Github accounts.
+5. SQL wasn't installed properly 
+![image](assets/docs/imagedocs/bug-docs/hadnt-installed-sql.png)
+
+6. note wasn't imported at the top of the page.
+![image](assets/docs/imagedocs/bug-docs/note-not-defined.png)
+![alt text](assets/docs/imagedocs/bug-docs/note-not-defined-solution.png)
+
+I had made a previous account called "Twinwinter" on my email address robertwinterburn@hotmail.co.uk and I had made a new account to make my name a bit more professional and readable (RWinterburn) but when I started making commits they came from "Twinwinter" on one and "RWinterburn" from another I don't know wether it was to do with me from switching from gitpod.io and codeanywhere to VScode need to figure this problem out for future developments as I haven't figured it out yet. So you will see commits from both of my Github accounts, dont think this has happened again. Resolved by git.
+
+I did run into a problem I had to sign up for gitpod.io with my student account after I already had started my website so there will be a commit name saying "RWinterburn2" it is linked to my student email.
+
+I tried signing up for Heroku so I had to find alternatives and it slowed my project to a halt for a few days finding a solution asked for an extended deadline on the project but I only managed to get a request form in at the last minute. 
 
 # Deployment and Development 
 
