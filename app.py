@@ -1,10 +1,14 @@
 from flask import Flask, render_template, redirect, url_for, request
 from flask_sqlalchemy import SQLAlchemy
-from os import path
+from os import path, environ
 from flask_login import LoginManager, current_user
 from flask_wtf.csrf import CSRFProtect
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Initialize the database
 db = SQLAlchemy()
@@ -13,8 +17,11 @@ admin = Admin()
 
 def create_app():
     app = Flask(__name__, template_folder='app/templates')
-    app.config["SECRET_KEY"] = "secret"
+    
+    # Use environment variables for configuration
+    app.config["SECRET_KEY"] = environ.get("SECRET_KEY", "default_secret_key")
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    
     csrf = CSRFProtect(app)
 
     # Initialize the database with the app
@@ -74,7 +81,6 @@ def create_database():
     if not path.exists('app/' + DB_NAME):
         db.create_all()
         print('Created Database')
-
 
 
 
