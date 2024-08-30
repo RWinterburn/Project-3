@@ -32,36 +32,33 @@ make sure users can delete thier profiles
 
 add admin restrictions
 
-# Oscars Quiz
-The Oscars quiz is a 10 question quiz testing the users knowledge on The Oscars, it includes a page to enter your name and, multiple choice questions and an ending page rounding up the total score and having the option to try again. The purpose of this quiz is to mainly test the users knowledge on the 2024 Oscars.
+# Gig Reviews
+Gig reviews is a website where users can post about their gigs they have been to and would like to leave a review about it on the page it is aimed towards musical people and who have a love for music. It also lets users comment on blog posts, add thier own blog posts and ive also added a gig wishlist feature for gigs they want to see in the future
 
 # User Stories
-The purpose of the Oscars app is to test the users knowledge, it has an enter name input to make it more personal and user friendly also having the option to try again at the end of the quiz.
+The purpose of Gig reviews is to let users display their thoughts on the musicians they have seen recently and to see any other reviews about gigs they maybe interesed in from other users
 
 ### User Goals
-* To learn more about the Oscars
-* To test their knowledge on the Oscars
-* To have fun and enjoy the quiz
-* To have the option to try again if they don't get the top score
-* To have the option to enter their name to make it more personal and user friendly
+* To learn more about Music
+* To have a platform for people to express their opinion about the latest music
+* To create a gig wishlist of artists who they would like to see
+* To have the option to delete and edit posts the user has made
+* To have the option to comment on other users blogs
 
 ### Site Owner goals 
 
-* Test the users knowledge on the 2024 Oscars
-* Make a bright fun quiz
-* Make the quiz personalized with custom messages
-* Make a fully functioning 10 question quiz
+* To make a music community where people can express their thoughts on the recent gigs they have been to
+* Make a fully functioning blog page where users can, create, read, update and delete thier own posts
+* Ensure that only logged-in users can post reviews and comments.
+* Make a database where when users have stored their information it can be seen from the admin panel for the admin 
+* To give the option for users to remove themselves off the database
 
 
 # UX Design
 
-The site is a simple design with the quiz card in the middle with all the information on there, then in the background I've photoshopped some actors into the background.
+Unfortunately due to time constraints and techincal issues I havent been able to fully implement my design into the website so it is very basic at the moment.
 
-
-To achieve the websites objectives to navigate through the different pages of the website I have added different sections in the html file instead of different pages though this may change the language mainly used for this project is javascript jquery the html file is very sparse because the logic i've used is that the javascript renders what is put into the html file using JQuery.
-
-
-The main design for the website will have the font color in black and background elements in will be golden to match the theme of the oscars (Dark black) to make the text stand out and be visually appealing the main body of the page will feature images on the background of actors to make it more streamlined for the applications purpose. 
+But I have gone with a grey/blue/white colour scheme for the majority of the website, with the main purpose of the blog being in the center,
 
 
 
@@ -177,15 +174,11 @@ The main design for the website will have the font color in black and background
 
 ## W3C Validation 
 Managed to fix these few errors by finding the lines of code referenced on the page and removing the stray tags and correctly formating the code. Here are the results. 
-![image](assets/docs/imgdocs/w3c-valid.png)
+![image](assets/docs/imgdocs/admin-dash.png)
 
 
 ![image](documents/valid-css.png "valid css") 
 
-### JSHint
-![image](assets/docs/imgdocs/jshint-errors.png)
-
-![image](assets/docs/imgdocs/jshint.png)
 
 ### Am I Responsive 
 ![image](assets/docs/imgdocs/responsive.png)
