@@ -256,8 +256,7 @@ Managed to fix these few errors by finding the lines of code referenced on the p
 
 ![image](assets/docs/imagedocs/sign-up-valid.png)
 
-### Am I Responsive 
-![image](assets/docs/imgdocs/responsive.png)
+
 
 ### Lighthouse Report 
 ![image](assets/docs/imagedocs/lighthouse.png)
@@ -308,6 +307,10 @@ To deploy the website the user must
 * Click "pages" 
 * You should see the website link https://rwinterburn.github.io/project-3
 * Click on the link and you will see the website.
+
+
+### Deployment on Cloud Flare
+Currently isn't working asked for an extension on deadline to resolve
 
 ### Development 
 For future development go to https://github.com/RWinterburn/project-3

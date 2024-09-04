@@ -1,23 +1,111 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Note</title>
+    <style>
+
+        :root {
+            --pastel-pink: #f9c1d9;
+            --pastel-blue: #a7c7e7;
+            --pastel-green: #b0eacd;
+            --pastel-yellow: #fff5ba;
+            --pastel-purple: #d3c4f3;
+            --pastel-dark: #444444;
+            --text-color: #333333;
+        }
+
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--pastel-yellow);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: var(--pastel-dark);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: var(--pastel-blue);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        label {
+            color: var(--pastel-dark);
+            font-size: 1.1rem;
+        }
+
+        textarea {
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--pastel-dark);
+            padding: 10px;
+            resize: vertical;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: var(--pastel-green);
+            border: none;
+            color: var(--pastel-dark);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--pastel-dark);
+            color: var(--pastel-yellow);
+        }
+
+        a {
+            color: var(--pastel-dark);
+            text-decoration: none;
+            font-size: 1rem;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            color: var(--pastel-dark);
+            background-color: #d3c4f3;
+            padding: 20px;
+            border: #333333;
+            font-weight: 300;
+
+        }
+    </style>
 </head>
 <body>
-    <h1>Edit Note</h1>
+    <div class="container">
+        <h1>Edit Note</h1>
 
-    <form action="{{ url_for('views.edit_note', note_id=note.id) }}" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <label for="data">Content:</label><br>
-        <textarea id="data" name="data" rows="10" cols="50">{{ note.data }}</textarea><br><br>
-        
-        <button type="submit">Update Note</button>
-    </form>
+        <form action="{{ url_for('views.edit_note', note_id=note.id) }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <label for="data">Content:</label><br>
+            <textarea id="data" name="data" rows="10" cols="50">{{ note.data }}</textarea><br><br>
+            
+            <button type="submit">Update Note</button>
+        </form>
 
-    <a href="{{ url_for('auth.profile') }}">Cancel</a>
+        <a href="{{ url_for('auth.profile') }}">Cancel</a>
+    </div>
 </body>
 </html>
 

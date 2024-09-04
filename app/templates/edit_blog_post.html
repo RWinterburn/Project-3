@@ -1,25 +1,119 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Blog Post</title>
+    <style>
+
+        :root {
+            --pastel-pink: #f9c1d9;
+            --pastel-blue: #a7c7e7;
+            --pastel-green: #b0eacd;
+            --pastel-yellow: #fff5ba;
+            --pastel-purple: #d3c4f3;
+            --pastel-dark: #444444;
+            --text-color: #333333;
+        }
+
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--pastel-yellow);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: var(--pastel-dark);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: var(--pastel-blue);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+        }
+
+        label {
+            color: var(--pastel-dark);
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid var(--pastel-dark);
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: var(--pastel-green);
+            border: none;
+            color: var(--pastel-dark);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--pastel-dark);
+            color: var(--pastel-yellow);
+        }
+
+        a {
+            color: var(--pastel-dark);
+            text-decoration: none;
+            font-size: 1rem;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            color: var(--pastel-dark);
+            background-color: var(--pastel-purple);
+            font-weight: 300;
+        }
+    </style>
 </head>
 <body>
-    <h1>Edit Blog Post</h1>
-    
-    <form action="{{ url_for('views.edit_blog_post', post_id=blog_post.id) }}" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <label for="title">Title</label><br>
-        <input type="text" id="title" name="title" value="{{ blog_post.title }}"><br><br>
+    <div class="container">
+        <h1>Edit Blog Post</h1>
         
-        <label for="content">Content</label><br>
-        <textarea id="content" name="content" rows="10" cols="50">{{ blog_post.content }}</textarea><br><br>
-        
-        <button type="submit">Update Post</button>
-    </form>
+        <form action="{{ url_for('views.edit_blog_post', post_id=blog_post.id) }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" value="{{ blog_post.title }}">
+            
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="10">{{ blog_post.content }}</textarea>
+            
+            <button type="submit">Update Post</button>
+        </form>
 
-    <a href="{{ url_for('views.show_blog_posts') }}">Cancel</a>
+        <a href="{{ url_for('views.show_blog_posts') }}">Cancel</a>
+    </div>
 </body>
 </html>
