@@ -65,11 +65,7 @@ The purpose of Gig reviews is to let users display their thoughts on the musicia
 
 # UX Design
 
-Unfortunately due to time constraints and techincal issues I havent been able to fully implement my design into the website so it is very basic at the moment.
-
-But I have gone with a grey/blue/white colour scheme for the majority of the website, with the main purpose of the blog being in the center,
-
-
+For the colour scheme I have gone with a fun pastel colour with all of the colours complimenting eachother and a simple design so users know what they're looking at as soon as they load the page.
 
 # Data Schema Overview
 
@@ -288,9 +284,25 @@ I had made a previous account called "Twinwinter" on my email address robertwint
 
 I did run into a problem I had to sign up for gitpod.io with my student account after I already had started my website so there will be a commit name saying "RWinterburn2" it is linked to my student email.
 
-I tried signing up for Heroku so I had to find alternatives and it slowed my project to a halt for a few days finding a solution asked for an extended deadline on the project but I only managed to get a request form in at the last minute. 
+I tried signing up for Heroku so I had to find alternatives and it slowed my project to a halt for a few days finding a solution asked for an extended deadline on the project but I only managed to get a request form in at the last minute(Managed to fix heroku by starting new account unfortunately im getting charged at the minute though for add ons)
+
+
+
+# Am I responsive 
+
+![alt text](assets/docs/imagedocs/am-i-responsive.png) 
+Am I Responsive test
 
 # Deployment and Development 
+
+### Heroku deployment 
+
+
+* Login: Open your terminal and log in to Heroku: heroku login
+* Create an App: heroku create gig-reviews 
+* Deploy: git push heroku main 
+* View: heroku open
+
 
 ### Deployment 
 
